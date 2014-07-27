@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"log"
 	"strconv"
+	"time"
 
 	"github.com/codegangsta/cli"
 	"github.com/wsxiaoys/terminal"
@@ -102,10 +103,6 @@ func load(sl *ServerList, context *cli.Context) {
 	if len(sl.Servers) == 0 {
 		log.Fatalln("No servers found.")
 	}
-	results := make(chan *Server, len(sl.Servers))
-	for _, server := range sl.Servers {
-		go fetch(server, results)
-	}
 	output(sl.Servers)
 }
 
@@ -156,7 +153,7 @@ func main() {
 			Usage: "Lists added servers.",
 			Action: func(c *cli.Context) {
 				config := &ServerList{}
-				if err := config.load(c.GlobalString("config")); err != nil {
+				if err := config.load_file(c.GlobalString("config")); err != nil {
 					log.Fatalln("Config file error: ", err)
 				}
 
