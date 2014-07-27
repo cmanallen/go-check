@@ -1,6 +1,6 @@
 ####Go Check
 
-A simple server status check utility.
+A simple (incomplete) server status check utility.
 
 Overview
 --------
